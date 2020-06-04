@@ -1,0 +1,10 @@
+{
+    "name": "gatsby-source-dialoguewise",
+    "version": "1.0.0",
+    "description": "DialogueWise Gatsby Source Plugin",
+    "main": "index.js",
+    "dependencies": {
+        "moment": "^2.26.0",
+        "node-fetch": "^2.6.0"
+    }
+}
