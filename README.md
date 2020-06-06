@@ -24,6 +24,8 @@ module.exports = {
                 variableList: {
                     '@wheel': 2
                 },
+                pageIndex: 1,
+                pageSize: 10,
             },
         ],
       },
@@ -38,7 +40,7 @@ You can query dialogue nodes like the following:
 
 ```graphql
 {
-  allDialogue {
+  allDialogueWise {
     edges {
       node {
         name
@@ -54,7 +56,7 @@ To filter by the `name` you specified in the config:
 
 ```graphql
 {
-  allFile(filter: { name: { eq: "hero-section" } }) {
+  allDialogueWise(filter: { name: { eq: "hero-section" } }) {
     edges {
       node {
         name
@@ -79,7 +81,7 @@ export default function DwDemo({ data }) {
     <div>
       <h1>DialogueWise Demo</h1>
 
-      {data.allDialogue.edges.map(({ node }) => (
+      {data.allDialogueWise.edges.map(({ node }) => (
         JSON.parse(node.content).map( (content, index) => (
             <div key={index} dangerouslySetInnerHTML={{ __html: content['hero-content'] }} />)
         )
@@ -90,7 +92,7 @@ export default function DwDemo({ data }) {
 
 export const query = graphql`
 query {
-  allDialogue(filter: {name: {eq: "hero-section"}}) {
+  allDialogueWise(filter: {name: {eq: "hero-section"}}) {
     edges {
       node {
         content
