@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const DIALOGUE_NODE_TYPE = `Dialogue`;
 
 function isValid(param) {
-  return !(param == null || String(param).trim() == '')
+  return !(param == null || String(param).trim() == "");
 }
 
 exports.sourceNodes = async (
@@ -29,16 +29,22 @@ exports.sourceNodes = async (
   for (const dialogue of requests.dialogues) {
     // make sure we have the mandatory dialougeName
     if (!isValid(dialogue.name)) {
-      throw 'Dialogue Name field is mandatory';
+      throw "Dialogue Name field is mandatory";
     }
 
     //The page flag allows you to get paginated data. If not passed it will return all data.
-    var pageFlag = ""
-    if( (!isValid(dialogue.pageSize) && isValid(dialogue.pageIndex)) || 
-    (isValid(dialogue.pageSize) && !isValid(dialogue.pageIndex))) {
-      throw "Please set both pageSize and pageIndex"
-    } else if ( isValid(dialogue.pageSize) && isValid(dialogue.pageIndex) ) {
-      pageFlag = "&pageSize=" + String(dialogue.pageSize) + "&pageIndex=" + String(dialogue.pageIndex)
+    var pageFlag = "";
+    if (
+      (!isValid(dialogue.pageSize) && isValid(dialogue.pageIndex)) ||
+      (isValid(dialogue.pageSize) && !isValid(dialogue.pageIndex))
+    ) {
+      throw "Please set both pageSize and pageIndex";
+    } else if (isValid(dialogue.pageSize) && isValid(dialogue.pageIndex)) {
+      pageFlag =
+        "&pageSize=" +
+        String(dialogue.pageSize) +
+        "&pageIndex=" +
+        String(dialogue.pageIndex);
     }
 
     const request = {
