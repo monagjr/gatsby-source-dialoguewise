@@ -24,7 +24,9 @@ exports.sourceNodes = async (
 
   for (const dialogue of requests.dialogues ) {
     // make sure we have the mandatory dialougeName
-    if (dialogue.hasOwnProperty('name')){
+    if (!dialogue.hasOwnProperty('name') || dialogue.name.trim() == ''){
+      throw "Name field is mandatory"
+    }
 
       const request = {
         apiKey: requests.apiKey,
@@ -81,7 +83,7 @@ exports.sourceNodes = async (
         nodeDialogueData.error = err.message
       }
       nodes.push(nodeDialogueData)
-    }
+    
   }
 
   // loop through data and create Gatsby nodes
