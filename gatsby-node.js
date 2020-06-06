@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 const moment = require("moment");
 const crypto = require("crypto");
 
-const DIALOGUE_NODE_TYPE = `Dialogue`;
+const DIALOGUE_NODE_TYPE = `DialogueWise`;
 
 function isValid(param) {
   return !(param == null || String(param).trim() == "");
