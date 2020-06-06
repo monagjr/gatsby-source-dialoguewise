@@ -4,6 +4,10 @@ const crypto = require("crypto");
 
 const DIALOGUE_NODE_TYPE = `Dialogue`;
 
+function isValid(param) {
+  return !(param == null || param.trim() == '')
+}
+
 exports.sourceNodes = async (
   { actions, createNodeId, createContentDigest },
   pluginOptions
@@ -24,8 +28,8 @@ exports.sourceNodes = async (
 
   for (const dialogue of requests.dialogues) {
     // make sure we have the mandatory dialougeName
-    if (!dialogue.hasOwnProperty("name") || dialogue.name.trim() == "") {
-      throw "Name field is mandatory";
+    if (!isValid(dialogue.name)) {
+      throw 'Dialogue Name field is mandatory';
     }
 
     const request = {
