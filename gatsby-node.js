@@ -90,7 +90,7 @@ exports.sourceNodes = async (
       const response = await fetch(apiUrl, {
         method: "post",
         headers: headers,
-        body: JSON.stringify(request.variableList),
+        body: request.variableList?JSON.stringify(request.variableList):null,
       });
 
       if (response.status !== 200) {
