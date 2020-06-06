@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const DIALOGUE_NODE_TYPE = `Dialogue`;
 
 function isValid(param) {
-  return !(param == null || param.trim() == '')
+  return !(param == null || String(param).trim() == '')
 }
 
 exports.sourceNodes = async (
@@ -32,6 +32,15 @@ exports.sourceNodes = async (
       throw 'Dialogue Name field is mandatory';
     }
 
+    //The page flag allows you to get paginated data. If not passed it will return all data.
+    var pageFlag = ""
+    if( (!isValid(dialogue.pageSize) && isValid(dialogue.pageIndex)) || 
+    (isValid(dialogue.pageSize) && !isValid(dialogue.pageIndex))) {
+      throw "Please set both pageSize and pageIndex"
+    } else if ( isValid(dialogue.pageSize) && isValid(dialogue.pageIndex) ) {
+      pageFlag = "&pageSize=" + String(dialogue.pageSize) + "&pageIndex=" + String(dialogue.pageIndex)
+    }
+
     const request = {
       apiKey: requests.apiKey,
       emailHash: requests.emailHash,
@@ -46,7 +55,8 @@ exports.sourceNodes = async (
       apiBaseUrl +
       "dialogue/getdialogue?dialogueName=" +
       request.dialogueName +
-      isPilotFlag;
+      isPilotFlag +
+      pageFlag;
 
     const message = "/api/dialogue/getdialogue:" + currentUtc;
     const key = request.apiKey;
